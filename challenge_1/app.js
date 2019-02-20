@@ -10,7 +10,7 @@
 
 
 
-// create 2 users with array to keep track of clicked squares
+// create 2 user objects with array inside to keep track of clicked boxes
 var currentUser = 'user1';
 
 var user1 = {
@@ -21,62 +21,67 @@ var user2 = {
   valuesPlayed: []
 };
 
-// function switchUser() {
-//   if (currentUser === 'X') {
-//     currentUser = 'O'
-//   } else if (currentUser === 'O') {
-//     currentUser = 'X'
-//   }
-// };
 
-
+function switchUser() {
+  if (currentUser === 'user1'){ 
+    currentUser = 'user2';
+  } else if (currentUser === 'user2') {
+    currentUser = 'user1';
+  };
+};
 
 
 function boxClicked(position) {
-
   var userMark = '';
-  
-  if(currentUser === user1){
+
+  if(currentUser === 'user1'){
     userMark = 'X';
-   // currentUser = user2;
   } else {
     userMark = 'O';
   };
-  //  else if (currentUser === user2){
-  //   userMark = 'O';
-  //   currentUser = user1;
-  // }
-
   document.getElementById(position).innerHTML = userMark;
+  switchUser();
+
 
   var tempArray = [position];
 
-  
+//console.log('tempArray ------->', tempArray);
 
   if(currentUser === "user1"){
     user1.valuesPlayed.push(tempArray)
   } else {
     user2.valuesPlayed.push(tempArray)
-  } 
-
-  console.log('tempArray ------->', tempArray);
-
- 
+  };
+ //console.log('Values played for user 1 ------->', user1.valuesPlayed)
+   
 function isItAWin (){
-   var winningCombos = [['1a', '2a', '3a'], ['1b','2b', '3b'],['1c', '2c', '3c']]
+   var winningCombos = [
+     [['1a'],['2a'], ['3a']], 
+     [['1b'],['2b'], ['3b']], 
+     [['1c'],['2c'], ['3c']], 
+     [['1a'],['2b'], ['3c']],
+     [['3a'],['2b'], ['1c']]];
+  // console.log('Winning combos 0 ------->', winningCombos[0]);
+  //  console.log('Winning combos  1 ------->', winningCombos[1]);
    for (var i = 0; i < winningCombos.length; i++) {
-    if(tempArray.includes(winningCombos[i])) {
-      currentUser = 'Winner';
-  }
-   }
-   if(tempArray.includes(winningCombos[0])) {
-   var winner = alert('Winner');
-   currentUser = 'winner';
+    if(user1.valuesPlayed == winningCombos[0] || winningCombos[1]) {
+      //console.log('Winning combos ------->', winningCombos[i]);
+     user1 = 'Winner';
+    // alert('Winner')
+    
+    } else if(user2.valuesPlayed.includes(winningCombos[i])) {
+    user2 = 'Winner';
+      } else  { 
+        return 'Tie'
+      }
+   };
+  //  if(tempArray.includes(winningCombos[0])) {
+  //  var winner = alert('Winner');
+  //  currentUser = winner;
   
  
-  }
-  //console.log('Winner');
-  // console.log(winningCombos[i]) 
+  // }
+  
  };
   
    result = isItAWin();  
