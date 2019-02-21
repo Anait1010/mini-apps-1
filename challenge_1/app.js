@@ -71,18 +71,17 @@ function isItAWin (){
 
      // Compare user1.valuesPlayed/user2.valuesPlayed with winningCombos[i]
      // if they are equal we have a winner
-  
    for (var i = 0; i < winningCombos.length; i++) {
-    //console.log('Winning combos ------->', winningCombos[i]);
-
-      if(user1.valuesPlayed.includes(winningCombos[i])) {
-        console.log('"O" is a winner');
-    
-      } else if (user2.valuesPlayed.includes(winningCombos[i])) { 
-        console.log('"X" is a winner');
-        } else  { 
-          console.log('Tie');
-      }
+        if(user1.valuesPlayed === winningCombos[i]) {
+          console.log('user 1', user1.valuesPlayed)
+          console.log('"O" is a winner');
+        } else if (user2.valuesPlayed.includes(winningCombos[i])) { 
+          console.log('"X" is a winner');
+          } else  { 
+            console.log('Tie');
+        } 
+     
+  
    };
 
 
