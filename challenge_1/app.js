@@ -55,44 +55,43 @@ function boxClicked(position) {
     //console.log('user array 1 ------->', user1.valuesPlayed);
   } else  {
     user2.valuesPlayed.push(tempArray)
-    // console.log('user array 2 ------->', user2.valuesPlayed);
+     console.log('user array 2 ------->', user2.valuesPlayed);
     };
-  isItAWin(); 
-
-   
-function isItAWin (){
-   var winningCombos = [
-     [['1a'],['2a'], ['3a']], 
-     [['1b'],['2b'], ['3b']], 
-     [['1c'],['2c'], ['3c']], 
-     [['1a'],['2b'], ['3c']],
-     [['3a'],['2b'], ['1c']]
-     ];
-
-     // Compare user1.valuesPlayed/user2.valuesPlayed with winningCombos[i]
-     // if they are equal we have a winner
-   for (var i = 0; i < winningCombos.length; i++) {
-        if(user1.valuesPlayed === winningCombos[i]) {
-          console.log('user 1', user1.valuesPlayed)
-          console.log('"O" is a winner');
-        } else if (user2.valuesPlayed.includes(winningCombos[i])) { 
-          console.log('"X" is a winner');
-          } else  { 
-            console.log('Tie');
-        } 
-     
-  
-   };
 
 
-  //  if(tempArray.includes(winningCombos[0])) {
-  //  var winner = alert('Winner');
-  //  currentUser = winner;
-  
- 
-  // }
-  
- };
+// create an array containing all cells e.g 1a, 1b, 1c .....
+// when the board is full
+// loop through each users array
+// and check if any of them have winning combinations 
+
+
+  // isItAWin(); 
+// function isItAWin (){
+//   var winningCombos = [
+//     [['1a'],['2a'], ['3a']], 
+//     [['1b'],['2b'], ['3b']], 
+//     [['1c'],['2c'], ['3c']], 
+//     [['1a'],['2b'], ['3c']],
+//     [['3a'],['2b'], ['1c']]
+//     ];
+
+//      // Compare user1.valuesPlayed/user2.valuesPlayed with winningCombos[i]
+//      // if they are equal we have a winner
+//   for (var i = 0; i < winningCombos.length; i++) {
+//     if(user1.valuesPlayed === winningCombos[i]) {
+//       console.log('user 1', user1.valuesPlayed)
+//       console.log('"O" is a winner');
+//     } else if (user2.valuesPlayed.includes(winningCombos[i])) { 
+//       console.log('"X" is a winner');
+//       } else  { 
+//         console.log('Tie');
+//     } 
+//   };
+//   //  if(tempArray.includes(winningCombos[0])) {
+//   //  var winner = alert('Winner');
+//   //  currentUser = winner;
+//   // }
+//  };
   
   //  result = isItAWin();  
   // if(result === true){
