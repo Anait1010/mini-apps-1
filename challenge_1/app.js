@@ -1,14 +1,3 @@
-/* <td id="1a" onclick="boxClicked('1a')"></td>
-<td id="2a" onclick="boxClicked('2a')"></td>
-<td id="3a" onclick="boxClicked('3a')"></td>
-<td id="1b" onclick="boxClicked('1b')"></td>
-<td id="2b" onclick="boxClicked('2b')"></td>
-<td id="3b" onclick="boxClicked('3b')"></td>
-<td id="1c" onclick="boxClicked('1c')"></td>
-<td id="2c" onclick="boxClicked('2c')"></td>
-<td id="3c" onclick="boxClicked('3c')"></td> */
-
-
 
 // create 2 user objects with array inside to keep track of clicked boxes
 var currentUser = 'user1';
@@ -16,7 +5,6 @@ var currentUser = 'user1';
 var user1 = {
   valuesPlayed: []
 };
-
 
 var user2 = {
   valuesPlayed: []
@@ -42,64 +30,93 @@ function boxClicked(position) {
   };
   document.getElementById(position).innerHTML = userMark;
 
+ var oneA =  document.getElementById('1a');
+ var oneB =  document.getElementById('1b');
+ var oneC =  document.getElementById('1c');
+ var twoA =  document.getElementById('2a');
+ var twoB =  document.getElementById('2b');
+ var twoC =  document.getElementById('2c');
+ var threeA =  document.getElementById('3a');
+ var threeB =  document.getElementById('3b');
+ var threeC =  document.getElementById('3c');
+// console.log('oneA',oneA.textContent )
+
   switchUser();
 
 // temporary array that holds clicked values before it is pushed to each users array
   var tempArray = [position];
 
-//console.log('tempArray ------->', tempArray);
 
 // push clicked values from tempArray to each user's array
   if(currentUser === 'user1') {
     user1.valuesPlayed.push(tempArray)
-    //console.log('user array 1 ------->', user1.valuesPlayed);
   } else  {
     user2.valuesPlayed.push(tempArray)
-     console.log('user array 2 ------->', user2.valuesPlayed);
+    // console.log('user array 2 ------->', user2.valuesPlayed);
     };
 
-
-// create an array containing all cells e.g 1a, 1b, 1c .....
-// when the board is full
-// loop through each users array
-// and check if any of them have winning combinations 
-
-
-  // isItAWin(); 
-// function isItAWin (){
-//   var winningCombos = [
-//     [['1a'],['2a'], ['3a']], 
-//     [['1b'],['2b'], ['3b']], 
-//     [['1c'],['2c'], ['3c']], 
-//     [['1a'],['2b'], ['3c']],
-//     [['3a'],['2b'], ['1c']]
-//     ];
-
-//      // Compare user1.valuesPlayed/user2.valuesPlayed with winningCombos[i]
-//      // if they are equal we have a winner
-//   for (var i = 0; i < winningCombos.length; i++) {
-//     if(user1.valuesPlayed === winningCombos[i]) {
-//       console.log('user 1', user1.valuesPlayed)
-//       console.log('"O" is a winner');
-//     } else if (user2.valuesPlayed.includes(winningCombos[i])) { 
-//       console.log('"X" is a winner');
-//       } else  { 
-//         console.log('Tie');
-//     } 
-//   };
-//   //  if(tempArray.includes(winningCombos[0])) {
-//   //  var winner = alert('Winner');
-//   //  currentUser = winner;
-//   // }
-//  };
-  
-  //  result = isItAWin();  
-  // if(result === true){
-  //   document.getElementById("winner").innerHTML = currentUser
-  // } else {
-  //   //next user's move
-    
-  // }
-
-}
+ isItAWin(); 
+function isItAWin () {
+  if (oneA.textContent === 'X' && twoA.textContent === 'X' && threeA.textContent === 'X') {
+    return 'X';
+  }
+  else if (oneB.textContent === 'X' && twoB.textContent === 'X' && threeB.textContent === 'X') {
+    return 'X';
+  }
+  else if (oneC.textContent === 'X' && twoC.textContent === 'X' && threeC.textContent === 'X') {
+    return 'X';
+  }
+  else if (oneA.textContent === 'X' && oneB.textContent === 'X' && oneC.textContent === 'X') {
+    return 'X';
+  }
+  else if (twoA.textContent === 'X' && twoB.textContent === 'X' && twoC.textContent === 'X') {
+    return 'X';
+  }
+  else if (threeA.textContent === 'X' && threeB.textContent === 'X' && threeC.textContent === 'X') {
+    return 'X';
+  }
+  else if (oneA.textContent === 'X' && twoB.textContent === 'X' && threeC.textContent === 'X') {
+    return 'X';
+  }
+  else if (threeA.textContent === 'X' && twoB.textContent === 'X' && oneC.textContent === 'X') {
+    return 'X';
+  }
+  else if (oneA.textContent === 'O' && twoA.textContent === 'O' && threeA.textContent === 'O') {
+    return 'O';
+  }
+  else if (oneB.textContent === 'O' && twoB.textContent === 'O' && threeB.textContent === 'O') {
+    return 'O';
+  }
+  else if (oneC.textContent === 'O' && twoC.textContent === 'O' && threeC.textContent === 'O') {
+    return 'O';
+  }
+  else if (oneA.textContent === 'O' && oneB.textContent === 'O' && oneC.textContent === 'O') {
+    return 'O';
+  }
+  else if (twoA.textContent === 'O' && twoB.textContent === 'X' && twoC.textContent === 'O') {
+    return 'O';
+  }
+  else if (threeA.textContent === 'O' && threeB.textContent === 'X' && threeC.textContent === 'X') {
+    return 'O';
+  }
+  else if (oneA.textContent === 'O' && twoB.textContent === 'O' && threeC.textContent === 'O') {
+    return 'O';
+  }
+  else if (threeA.textContent === 'O' && twoB.textContent === 'O' && oneC.textContent === 'O') {
+    return 'O';
+  }
+};
+  if(isItAWin() === 'X') {
+    alert('X is a winner!')
+  }
+  if(isItAWin() === 'O') {
+    alert('O is a winner!')
+  }
+  var reset = document.getElementById('reset');
+    reset.addEventListener('click', function() {
+      document.getElementById(position).innerHTML = userMark;
+      userMark = '';
+      currentUser = 'user1';
+    });
+};
 
