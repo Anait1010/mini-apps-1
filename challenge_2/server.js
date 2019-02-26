@@ -56,12 +56,14 @@ app.post('/fileData',upload.single('filePicker'),function (req, res) {
 var template = 
 `
 <body>
-    <h1> CSV Report Generator </h1>
-      <form id = 'form' method = 'POST' action = '/fileData'> 
-        <textarea name = 'text' placeholder='Enter CSV data'></textarea>
-        <input type ='submit' value='Submit'>
-      </form>
-  </body>
+  <h1> CSV Report Generator </h1>
+    <form id = 'form' method = 'POST' action = '/fileData' enctype = multipart/form-data> 
+      <!-- <textarea name = 'text' placeholder='Enter CSV data'></textarea> -->
+      <input type = 'file' name = 'filePicker'>
+      <input type ='submit' value='Submit'>
+    </form>
+    <a href = '/fileData' download> Download </a>
+</body>
 `
 //res.statusCode = 404;
 res.setHeader('Content-disposition', 'attachment; filename=createCSVFromData.csv');
@@ -72,7 +74,6 @@ res.end();
 });
 
 
-//catches post request from html
 app.listen(8080, function(err) {
   if (err) {
     console.log(err);
