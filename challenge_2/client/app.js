@@ -9,9 +9,9 @@ $(document).ready(function(){
       type: "POST",
       url: '/fileData',
       data: formData,
-      success: function(data) {
-        $('body').html(data);
-      }, //catch the data that server sends
+      success: function(csvJSON) {
+        $('body').html(csvJSON);
+      }, //catches the data that server sends
     });
   });   
 });
