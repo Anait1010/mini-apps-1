@@ -19,39 +19,77 @@ class App extends React.Component {
       cvv:'',
       billingZip:''
     }
-  }
-  checkoutPage() {
-    this.setState({current: F1})
+      this.newFunction = this.newFunction.bind(this)
   }
 
-  form1Page() {
+  newFunction(event) {
+    this.setState({
+      [event.target.id]:event.target.value
+    })
+   // console.log('State------>', this.state);
+  }
+
+  checkoutPage() {
+    this.setState({current: 'F1'})
+      fetch('/formOne', {
+        method: 'GET',
+      })
+  }
+
+  form1Page(event) {
     this.setState({
       current:'F2',
-      name: this.state.name,
-      email: this.state.email,
-      password: this.state.password
+    })
+    //console.log("event------>", `{ ${event.target.id}: ${event.target.value}}`)
+    fetch('/formTwo', {
+      method: 'POST',
+      headers:{'Content-Type': 'application/json'},
+      body: JSON.stringify(
+        {
+        name: this.state.name,
+        email: this.state.email,
+        password: this.state.password
+      }),
+    }).catch(function(err) {
+      console.log('Error',err);
     })
   }
 
   form2Page() {
     this.setState({
       current: 'F3',
-      addressOne: this.state.addressOne,
-      addressTwo: this.state.addressTwo,
-      city: this.state.city,
-      state: this.state.state,
-      zipCode: this.state.zipCode,
-      phoneNumber: this.state.phoneNumber
+    })
+    fetch('/formThree', {
+      method: 'POST',
+      headers:{'Content-Type': 'application/json'},
+      body: JSON.stringify(
+        {
+        addressOne: this.state.addressOne,
+        addressTwo: this.state.addressTwo,
+        city: this.state.city,
+        state: this.state.state,
+        zipCode: this.state.zipCode,
+        phoneNumber: this.state.phoneNumber
+      }),
+    }).catch(function(err) {
+      console.log('Error',err);
     })
   }
 
   form3Page() {
     this.setState({
       current:'Confirmation',
-      creditCard: this.state.creditCard,
-      exp: this.state.exp,
-      cvv: this.state.cvv,
-      billingZip: this.state.billingZip
+    })
+    fetch('/confirmationForm', {
+      method: 'POST',
+      headers:{'Content-Type': 'application/json'},
+      body: JSON.stringify(
+        {
+        creditCard: this.state.creditCard,
+        exp: this.state.exp,
+        cvv: this.state.cvv,
+        billingZip: this.state.billingZip
+        })
     })
   }
 
@@ -67,16 +105,16 @@ class App extends React.Component {
     if (this.state.current === 'F2') {
       return (
         <div>
-          <h1>Enter Customer Information</h1>
+          <h2>Enter Customer Information</h2>
           <form>
-            <lable>First Name</lable>
-              <input type="text" id="name" name="name" value={this.state.name} onChange={this.onInputChange.bind(this)}></input>
+            <label>First Name</label>
+              <input type="text" id="name" name="name" value={this.state.name} onChange={this.newFunction}></input>
               <br></br>
-            <lable>Email</lable>
-              <input type="text" id="email" value={this.state.email} onChange={this.onInputChange.bind(this)}></input>
+            <label>Email</label>
+              <input type="text" id="email" value={this.state.email} onChange={this.newFunction}></input>
               <br></br>
-            <lable>Password</lable>
-              <input type="password" id="password" value={this.state.password} onChange={this.onInputChange.bind(this)}></input>
+            <label>Password</label>
+              <input type="password" id="password" value={this.state.password} onChange={this.newFunction}></input>
               <br></br>
             <input type="submit" value="Next" onClick={this.form2Page.bind(this)}></input>
           </form>
@@ -86,25 +124,25 @@ class App extends React.Component {
     if (this.state.current === 'F3') {
       return (
         <div>
-          <h1>Shipping Information</h1>
+          <h2>Shipping Information</h2>
           <form>
-            <lable>Address line 1</lable>
-              <input type="text" id="addressOne" name="addressOne" value={this.state.addressOne} onChange={this.onInputChange.bind(this)}></input>
+            <label>Address line 1</label>
+              <input type="text" id="addressOne" name="addressOne" value={this.state.addressOne} onChange={this.newFunction}></input>
               <br></br>
-            <lable>Address line 2</lable>
-              <input type="text" id="addressTwo" value={this.state.addressTwo} onChange={this.onInputChange.bind(this)}></input>
+            <label>Address line 2</label>
+              <input type="text" id="addressTwo" value={this.state.addressTwo} onChange={this.newFunction}></input>
               <br></br>
-            <lable>City</lable>
-              <input type="text" id="city" value={this.state.city} onChange={this.onInputChange.bind(this)}></input>
+            <label>City</label>
+              <input type="text" id="city" value={this.state.city} onChange={this.newFunction}></input>
               <br></br>
-            <lable>State</lable>
-              <input type="text" id="state" value={this.state.state} onChange={this.onInputChange.bind(this)}></input>
+            <label>State</label>
+              <input type="text" id="state" value={this.state.state} onChange={this.newFunction}></input>
               <br></br>
-            <lable>Zip Code</lable>
-              <input type="text" id="zipCode" value={this.state.zipCode} onChange={this.onInputChange.bind(this)}></input>
+            <label>Zip Code</label>
+              <input type="text" id="zipCode" value={this.state.zipCode} onChange={this.newFunction}></input>
               <br></br>
-            <lable>Phone Number</lable>
-              <input type="text" id="phoneNumber" value={this.state.phoneNumber} onChange={this.onInputChange.bind(this)}></input>
+            <label>Phone Number</label>
+              <input type="text" id="phoneNumber" value={this.state.phoneNumber} onChange={this.newFunction}></input>
               <br></br> 
             <input type="submit" value="Next" onClick={this.form3Page.bind(this)}></input>
           </form>
@@ -114,29 +152,29 @@ class App extends React.Component {
     if (this.state.current === 'Confirmation') {
       return (
         <div>
-          <h1>Billing Information</h1>
+          <h2>Billing Information</h2>
           <form>
-          <lable>Credit Card Number</lable> 
-            <input type="text" id="creditCard"  value={this.state.creditCard} onChange={this.onInputChange.bind(this)}></input>
+          <label>Credit Card Number</label> 
+            <input type="text" id="creditCard"  value={this.state.creditCard} onChange={this.newFunction}></input>
             <br></br>
-          <lable>Expiration</lable>  
-            <input type="text" id="exp"  value={this.state.exp} onChange={this.onInputChange.bind(this)}></input>
+          <label>Expiration</label>  
+            <input type="text" id="exp"  value={this.state.exp} onChange={this.newFunction}></input>
             <br></br>
-          <lable>CVV</lable> 
-            <input type="text" id="cvv" value={this.state.cvv} onChange={this.onInputChange.bind(this)}></input>
+          <label>CVV</label> 
+            <input type="text" id="cvv" value={this.state.cvv} onChange={this.newFunction}></input>
             <br></br>
-          <lable>Billing Zip</lable> 
-            <input type="text" id="billingZip"  value={this.state.billing} onChange={this.onInputChange.bind(this)}></input>
+          <label>Billing Zip</label> 
+            <input type="text" id="billingZip"  value={this.state.billing} onChange={this.newFunction}></input>
             <br></br>
-          <input type="submit" value="Next" onClick={this.Confirmation.bind(this)}></input>
+          <input type="submit" value="Next" onClick={this.purchasePage.bind(this)}></input>
         </form>
       </div>
       ); 
     }
-    if (this.state.current === 'purchasePage') {
+    if (this.state.current === 'mainPage') {
       return (
         <div>
-        <h1>Confirmation</h1>
+        <h2>Confirmation</h2>
         <p>Name: {this.state.name}</p>
         <p>Email: {this.state.email}</p>
         <p>Password: {this.state.password}</p>
@@ -151,7 +189,7 @@ class App extends React.Component {
         <p>CVV: {this.state.cvv}</p>
         <p>Billing Zip Code: {this.state.billingZip}</p>
     
-        <button onClick={this.mainPage.bind(this)}>PURCHASE</button>
+        <button onClick={this.purchasePage.bind(this)}>PURCHASE</button>
       </div>
       ); 
     }
