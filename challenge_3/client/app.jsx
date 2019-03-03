@@ -26,7 +26,7 @@ class App extends React.Component {
     this.setState({
       [event.target.id]:event.target.value
     })
-   // console.log('State------>', this.state);
+   //console.log('State------>', this.state);
   }
 
   checkoutPage() {
@@ -36,28 +36,33 @@ class App extends React.Component {
       })
   }
 
-  form1Page(event) {
+  form1Page() {
     this.setState({
       current:'F2',
-    })
-    //console.log("event------>", `{ ${event.target.id}: ${event.target.value}}`)
-    fetch('/formTwo', {
-      method: 'POST',
-      headers:{'Content-Type': 'application/json'},
-      body: JSON.stringify(
-        {
-        name: this.state.name,
-        email: this.state.email,
-        password: this.state.password
-      }),
-    }).catch(function(err) {
-      console.log('Error',err);
     })
   }
 
   form2Page() {
     this.setState({
       current: 'F3',
+    })
+    fetch('/formTwo', {
+      method: 'POST',
+      headers:{'Content-Type': 'application/json'},
+      body: JSON.stringify(
+        {
+          name: this.state.name,
+          email: this.state.email,
+          password: this.state.password
+      }),
+    }).catch(function(err) {
+      console.log('Error',err);
+    })
+  }
+
+  form3Page() {
+    this.setState({
+      current:'Confirmation',
     })
     fetch('/formThree', {
       method: 'POST',
@@ -70,16 +75,12 @@ class App extends React.Component {
         state: this.state.state,
         zipCode: this.state.zipCode,
         phoneNumber: this.state.phoneNumber
-      }),
-    }).catch(function(err) {
-      console.log('Error',err);
+        })
     })
   }
 
-  form3Page() {
-    this.setState({
-      current:'Confirmation',
-    })
+  purchasePage() {
+    this.setState({current: 'lastPage'})
     fetch('/confirmationForm', {
       method: 'POST',
       headers:{'Content-Type': 'application/json'},
@@ -92,10 +93,7 @@ class App extends React.Component {
         })
     })
   }
-
-  purchasePage() {
-    this.setState({current: 'mainPage'})
-  }
+  
   render() {
     if (this.state.current === 'mainPage') {
       return (
@@ -171,7 +169,7 @@ class App extends React.Component {
       </div>
       ); 
     }
-    if (this.state.current === 'mainPage') {
+    if (this.state.current === 'lastPage') {
       return (
         <div>
         <h2>Confirmation</h2>
