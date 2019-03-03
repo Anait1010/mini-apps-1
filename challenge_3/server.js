@@ -9,7 +9,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 
 
-app.get('/', function(req, res) {
+app.get('/checkout', function(req, res) {
   res.sendFile(path.join(__dirname,'/public/index.html'))
   //res.send('Hello from server');
 });
@@ -26,8 +26,11 @@ app.get('/formOne', function(req,res) {
 });
 
 app.post('/formTwo', function(req,res) {
-  //console.log('req.body------->', req.body);
-  db.query('UPDATE userInfo SET name = ?,email = ?, password = ? WHERE id = LAST_INSERT_ID()',[req.body.name, req.body.email,req.body.password], function(err, data) {
+  console.log('req.body------->', req.body);
+  // db.query('UPDATE userInfo SET name = ?,email = ?, password = ? WHERE id = LAST_INSERT_ID()',
+  //   [req.body.name, req.body.email,req.body.password], function(err, data) {
+  db.query('INSERT INTO userInfo (name, email, password) VALUES (?,?,?)',
+    [req.body.name, req.body.email,req.body.password], function(err, data) {
     if (err) {
       console.log('ERROR', err)
     } else {
@@ -38,7 +41,8 @@ app.post('/formTwo', function(req,res) {
 });
 app.post('/formThree', function(req,res) {
   //console.log('req.body------->', req.body);
-  db.query('UPDATE userInfo SET addressOne = ?, addressTwo = ?,city = ?, state = ?,zipCode = ?,phoneNumber = ? WHERE id = LAST_INSERT_ID()',[req.body.addressOne, req.body.addressTwo,req.body.city, req.body.state, req.body.zipCode,req.body.phoneNumber], function(err, data) {
+  db.query('UPDATE userInfo SET addressOne = ?, addressTwo = ?,city = ?, state = ?,zipCode = ?,phoneNumber = ? WHERE id = LAST_INSERT_ID()',
+  [req.body.addressOne, req.body.addressTwo,req.body.city, req.body.state, req.body.zipCode,req.body.phoneNumber], function(err, data) {
     if (err) {
       console.log('ERROR', err)
     } else {
@@ -49,7 +53,8 @@ app.post('/formThree', function(req,res) {
 });
 app.post('/confirmationForm', function(req,res) {
   //console.log('req.body------->', req.body);
-  db.query('UPDATE userInfo SET creditCard = ?, exp = ?, cvv = ?,billingZip = ? WHERE id = LAST_INSERT_ID()',[req.body.creditCard, req.body.exp, req.body.cvv, req.body.billingZip], function(err, data) {
+  db.query('UPDATE userInfo SET creditCard = ?, exp = ?, cvv = ?,billingZip = ? WHERE id = LAST_INSERT_ID()',
+  [req.body.creditCard, req.body.exp, req.body.cvv, req.body.billingZip], function(err, data) {
     if (err) {
       console.log('ERROR', err)
     } else {
@@ -97,7 +102,7 @@ db.query('USE checkoutForm', function(err, data) {
 });
 
 //Create a table for form information
-db.query('CREATE TABLE IF NOT EXISTS userInfo (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, name CHAR(30), email CHAR(20), password CHAR(14), addressOne CHAR(30), addressTwo CHAR(30), city CHAR(20), state CHAR(2), zipCode CHAR(5), phoneNumber CHAR(12), creditCard CHAR(20), exp CHAR(4), cvv CHAR(5), billingZip CHAR(5))', function(err,data) {
+db.query('CREATE TABLE IF NOT EXISTS userInfo (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, name CHAR(30), email CHAR(20), password CHAR(14), addressOne CHAR(30), addressTwo CHAR(30), city CHAR(20), state CHAR(15), zipCode CHAR(10), phoneNumber CHAR(12), creditCard CHAR(20), exp CHAR(4), cvv CHAR(5), billingZip CHAR(5))', function(err,data) {
   if (err) {
     console.log('ERROR', err)
   } else {
